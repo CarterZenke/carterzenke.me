@@ -1,0 +1,60 @@
+{% extends 'homepage/layout.html' %}
+
+{% block nav %}
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Teaching</a>
+    </li>
+</ul>
+{% endblock %}
+
+{% block body %}
+{% if spring_courses %}
+<div class="term mb-4">
+    <h4 class="mb-3" style="font-weight: 700">Spring 2022</h4>
+    {% for course in spring_courses %}
+    <div class="course mb-3">
+        <h6><span style="font-weight: 700">{{ course.title }} ({{ course.number }})</span>, {{ course.school }}</span></h6>
+        <p style="color: grey;">{{ course.role }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% if winter_courses %}
+<div class="term mb-4">
+    <h4 class="mb-3" style="font-weight: 700">Winter 2022</h4>
+    {% for course in winter_courses %}
+    <div class="course mb-3">
+        <h6><span style="font-weight: 700">{{ course.title }} ({{ course.number }})</span>, {{ course.school }}</span></h6>
+        <p style="color: grey;">{{ course.role }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% if fall_courses %}
+<div class="term mb-4">
+    <h4 class="mb-3" style="font-weight: 700">Fall 2021</h4>
+    {% for course in fall_courses %}
+    <div class="course mb-3">
+        <h6><span style="font-weight: 700">{{ course.title }} ({{ course.number }})</span>, {{ course.school }}</span></h6>
+        <p style="color: grey;">{{ course.role }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% if summer_courses %}
+<div class="term mb-4">
+    <h4 class="mb-3" style="font-weight: 700">Summer 2021</h4>
+    {% for course in summer_courses %}
+    <div class="course mb-3">
+        <h6><span style="font-weight: 700">{{ course.title }} ({{ course.number }})</span>, {{ course.school }}</span></h6>
+        <p style="color: grey;">{{ course.role }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% endblock %}
