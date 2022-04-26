@@ -18,3 +18,13 @@ a:hover {
 .active {
     color: purple !important;
 }
+
+img {
+    float: right;
+}
+
+@media screen and (max-width: 768px) {
+    img {
+        float: left;
+    }
+}
