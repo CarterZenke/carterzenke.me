@@ -47,6 +47,7 @@ if ENV == "production":
 
 INSTALLED_APPS = [
     'homepage',
+    'spells',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
