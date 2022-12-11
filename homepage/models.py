@@ -25,4 +25,4 @@ class Term(models.Model):
     year = models.IntegerField()
 
     def __str__(self):
-        return f"{self.id}: {self.get_semester_display()} {self.year}"
+        return f"{self.get_semester_display()} {self.year}"
