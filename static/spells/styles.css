@@ -1,0 +1,45 @@
+body {
+  background: #eaeaea;
+  color:#393939;
+  font-family:'Calibri';
+  font-size:11px;
+}
+
+#myInput {
+  margin-left:2%;
+  margin-right:2%;
+  width:96%;
+  height:40px;
+  margin-top:20px;
+  font-size:15px;
+  padding-left:12px;
+  margin-bottom:20px;
+}
+
+table {
+  border-collapse:collapse;
+  margin-left:2%;
+  margin-right:2%;
+  width:96%;
+}
+
+thead {
+  font-weight:bold;
+  font-size:14px;
+  color:#eaeaea;
+  background:#1d705b;
+  text-align:center;
+}
+
+thead td {
+  padding:5px;
+}
+
+tbody tr:hover {
+  background-color:#89cfbe;
+}
+
+tbody td {
+  border:0.5px solid #004735;
+  padding:5px;
+}
