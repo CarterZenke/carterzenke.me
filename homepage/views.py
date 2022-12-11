@@ -7,9 +7,8 @@ def index(request):
 
     history = {}
     for term in terms:
+        term.semester = term.get_semester_display()
         history[term] = Course.objects.filter(term=term)
-        for course in history[term]:
-            course.term.semester = course.term.get_semester_display()
 
     return render(request, "homepage/index.html", {
         "history" : history,
