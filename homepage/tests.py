@@ -1,5 +1,5 @@
 from django.test import Client
-from django.test import TestCase
+from django.test import TestCase, SimpleTestCase
 from homepage.models import Course, Term
 import random
 
@@ -14,16 +14,57 @@ TERMS = [
     {"semester": "Fall", "year": 2023},
 ]
 
+COURSES = [
+    {
+        "title": "Introduction to Computer Science",
+        "number": "CS50",
+        "school": "Harvard College",
+        "role": "Preceptor",
+    },
+    {
+        "title": "Computer Science for Lawyers",
+        "number": "HLS 2260",
+        "school": "Harvard Law School",
+        "role": "Preceptor",
+    },
+    {
+        "title": "Computer Science for Managers",
+        "number": "HBS 7475 & 7473",
+        "school": "Harvard Business School",
+        "role": "Preceptor",
+    },
+    {
+        "title": "Intensive Introduction to Computer Science",
+        "number": "CSCI E-50",
+        "school": "Harvard Extension School",
+        "role": "Teaching Fellow",
+    },
+    {
+        "title": "Introduction to Computer Science",
+        "number": "CS50",
+        "school": "Harvard College",
+        "role": "Preceptor",
+    },
+]
+
 
 class HomepageTestCase(TestCase):
     def setUp(self):
         self.client = Client()
+        self.response = self.client.get("/")
 
+    @classmethod
+    def setUpTestData(self):
+
+        # Shuffle terms and add to database
         random.shuffle(TERMS)
         for term in TERMS:
-            Term.objects.create(semester=term["semester"], year=term["year"])
+            Term.objects.create(**term)
 
-        self.response = self.client.get("/")
+        # Shuffle courses and add to database
+        random.shuffle(COURSES)
+        for course in COURSES:
+            Course.objects.create(**course, term=Term.objects.get(pk=random.randint(1,len(TERMS))))
 
     def test_homepage_status(self):
         """Homepage returns 200"""
@@ -33,7 +74,14 @@ class HomepageTestCase(TestCase):
         """Homepage uses index.html and layout.html from homepage app"""
         self.assertTemplateUsed(self.response, "homepage/index.html")
         self.assertTemplateUsed(self.response, "homepage/layout.html")
-
+    
+    def test_teaching_tab_active(self):
+        """Teaching tab is labeled as active"""
+        self.assertContains(
+            self.response,
+            '<a class="nav-link active" aria-current="page" href="/">Teaching</a>',
+        )
+    
     def test_name_included(self):
         """Name is included in homepage twice: once in meta title, once in title text"""
         self.assertContains(self.response, "Carter Zenke", count=2)
@@ -52,3 +100,12 @@ class HomepageTestCase(TestCase):
         for i, term in enumerate(history.keys()):
             self.assertEquals(sorted_terms[i]["semester"], term.semester)
             self.assertEquals(sorted_terms[i]["year"], term.year)
+
+    def test_courses_listed(self):
+        """All courses appear in HTML"""
+        for course in COURSES:
+            self.assertContains(
+                self.response,
+                f'<h6><span style="font-weight: 700">{course["title"]} ({course["number"]})</span>, {course["school"]}</h6> <p style="color: grey;">{ course["role"] }</p>',
+                html=True,
+            )

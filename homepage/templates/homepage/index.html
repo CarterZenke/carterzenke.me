@@ -15,7 +15,7 @@
         <h4 class="mb-3" style="font-weight: 700">{{ term.semester }} {{ term.year }}</h4>
         {% for course in courses %}
             <div class="course mb-3">
-                <h6><span style="font-weight: 700">{{ course.title }} ({{ course.number }})</span>, {{ course.school }}</span></h6>
+                <h6><span style="font-weight: 700">{{ course.title }} ({{ course.number }})</span>, {{ course.school }}</h6>
                 <p style="color: grey;">{{ course.role }}</p>
             </div>
         {% endfor %}
