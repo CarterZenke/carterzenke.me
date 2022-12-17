@@ -10,8 +10,8 @@
 
 {% block body %}
 {% if history %}
-<div class="term mb-4">
-    {% for term, courses in history.items %}
+{% for term, courses in history.items %}
+    <div class="term mb-4">
         <h4 class="mb-3" style="font-weight: 700">{{ term.semester }} {{ term.year }}</h4>
         {% for course in courses %}
             <div class="course mb-3">
@@ -19,7 +19,7 @@
                 <p style="color: grey;">{{ course.role }}</p>
             </div>
         {% endfor %}
-    {% endfor %}
-</div>
+    </div>
+{% endfor %}
 {% endif %}
 {% endblock %}
