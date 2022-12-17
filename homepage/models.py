@@ -6,7 +6,7 @@ class Course(models.Model):
     title = models.CharField(max_length=128)
     number = models.CharField(max_length=32)
     term = models.ForeignKey(
-        'Term',
+        "Term",
         on_delete=models.CASCADE,
     )
     school = models.CharField(max_length=64)
@@ -19,8 +19,13 @@ class Course(models.Model):
 class Term(models.Model):
     semester = models.CharField(
         max_length=6,
-        choices=[('Winter', 'Winter'), ('Spring', 'Spring'), ('Summer', 'Summer'), ('Fall', 'Fall')],
-        default='Winter'
+        choices=[
+            ("Winter", "Winter"),
+            ("Spring", "Spring"),
+            ("Summer", "Summer"),
+            ("Fall", "Fall"),
+        ],
+        default="Winter",
     )
     year = models.IntegerField()
 

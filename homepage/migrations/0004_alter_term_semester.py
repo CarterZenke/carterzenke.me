@@ -6,13 +6,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('homepage', '0003_alter_term_semester'),
+        ("homepage", "0003_alter_term_semester"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='term',
-            name='semester',
-            field=models.CharField(choices=[('Winter', 'Winter'), ('Spring', 'Spring'), ('Summer', 'Summer'), ('Fall', 'Fall')], default='Winter', max_length=6),
+            model_name="term",
+            name="semester",
+            field=models.CharField(
+                choices=[
+                    ("Winter", "Winter"),
+                    ("Spring", "Spring"),
+                    ("Summer", "Summer"),
+                    ("Fall", "Fall"),
+                ],
+                default="Winter",
+                max_length=6,
+            ),
         ),
     ]

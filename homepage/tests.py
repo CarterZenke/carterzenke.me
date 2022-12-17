@@ -64,7 +64,9 @@ class HomepageTestCase(TestCase):
         # Shuffle courses and add to database
         random.shuffle(COURSES)
         for course in COURSES:
-            Course.objects.create(**course, term=Term.objects.get(pk=random.randint(1,len(TERMS))))
+            Course.objects.create(
+                **course, term=Term.objects.get(pk=random.randint(1, len(TERMS)))
+            )
 
     def test_homepage_status(self):
         """Homepage returns 200"""
@@ -74,14 +76,14 @@ class HomepageTestCase(TestCase):
         """Homepage uses index.html and layout.html from homepage app"""
         self.assertTemplateUsed(self.response, "homepage/index.html")
         self.assertTemplateUsed(self.response, "homepage/layout.html")
-    
+
     def test_teaching_tab_active(self):
         """Teaching tab is labeled as active"""
         self.assertContains(
             self.response,
             '<a class="nav-link active" aria-current="page" href="/">Teaching</a>',
         )
-    
+
     def test_name_included(self):
         """Name is included in homepage twice: once in meta title, once in title text"""
         self.assertContains(self.response, "Carter Zenke", count=2)
