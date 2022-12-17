@@ -42,6 +42,8 @@ else:
 
 if ENV == "production":
     ALLOWED_HOSTS = ['carterzenke.me', 'www.carterzenke.me']
+else:
+    ALLOWED_HOSTS = ['testserver', 'localhost']
 
 # Application definition
 

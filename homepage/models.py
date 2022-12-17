@@ -19,8 +19,8 @@ class Course(models.Model):
 class Term(models.Model):
     semester = models.CharField(
         max_length=6,
-        choices=[('1', 'Winter'), ('2', 'Spring'), ('3', 'Summer'), ('4', 'Fall')],
-        default='1'
+        choices=[('Winter', 'Winter'), ('Spring', 'Spring'), ('Summer', 'Summer'), ('Fall', 'Fall')],
+        default='Winter'
     )
     year = models.IntegerField()
 
