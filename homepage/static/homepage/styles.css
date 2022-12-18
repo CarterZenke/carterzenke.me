@@ -8,7 +8,7 @@ a {
 }
 
 a:hover {
-    color: black;
+    color: #ddd;
 }
 
 .nav-link {
@@ -19,6 +19,14 @@ a:hover {
     color: #404664 !important;
 }
 
+.card .active {
+    color: white !important;
+}
+
+.card-title {
+    font-weight: 700;
+}
+
 img {
     float: right;
 }
@@ -27,4 +35,21 @@ img {
     img {
         float: left;
     }
+}
+
+.yt-video iframe {
+    position: absolute;
+    top: 0; bottom: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.yt-video {
+    position: relative;
+    display: block;
+    width: 100%; /* width of iframe wrapper */
+    height: 0;
+    padding: 0% 0% 56.25%; /* 16:9 ratio */
+    overflow: hidden;
 }

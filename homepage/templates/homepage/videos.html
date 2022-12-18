@@ -12,5 +12,28 @@
 {% endblock %}
 
 {% block body %}
-
+{% if videos %}
+<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+    {% for video in videos %}
+        <div class="col">
+            <div class="card">
+                <div class="yt-video card-img-top">
+                    <iframe src="{{ video.source }}" title="{{ video.title }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ video.title }}</h5>
+                    {% if video.slides %}<a href="{{ video.slides }}" class="badge rounded-pill bg-dark">Slides</a>{% endif %}
+                    {% if video.code %}<a href="{{ video.code }}" class="badge rounded-pill bg-dark">Source Code</a>{% endif %}
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">47k views</small>
+                    {% for tag in video.tags %}
+                        <span class="badge rounded-pill bg-primary">{{ tag }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
 {% endblock %}
