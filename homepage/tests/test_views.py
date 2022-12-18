@@ -1,5 +1,5 @@
 from django.test import Client
-from django.test import TestCase, SimpleTestCase
+from django.test import TestCase
 from homepage.models import Course, Term
 import random
 
@@ -49,10 +49,6 @@ COURSES = [
 
 
 class HomepageTestCase(TestCase):
-    def setUp(self):
-        self.client = Client()
-        self.response = self.client.get("/")
-
     @classmethod
     def setUpTestData(self):
 
@@ -67,6 +63,10 @@ class HomepageTestCase(TestCase):
             Course.objects.create(
                 **course, term=Term.objects.get(pk=random.randint(1, len(TERMS)))
             )
+
+    def setUp(self):
+        self.client = Client()
+        self.response = self.client.get("/")
 
     def test_homepage_status(self):
         """Homepage returns 200"""
@@ -85,8 +85,8 @@ class HomepageTestCase(TestCase):
         )
 
     def test_name_included(self):
-        """Name is included in homepage twice: once in meta title, once in title text"""
-        self.assertContains(self.response, "Carter Zenke", count=2)
+        """Name is included in homepage"""
+        self.assertContains(self.response, "Carter Zenke")
 
     def test_all_terms_listed_once(self):
         """All terms appear exactly once in HTML"""
@@ -111,3 +111,34 @@ class HomepageTestCase(TestCase):
                 f'<h6><span style="font-weight: 700">{course["title"]} ({course["number"]})</span>, {course["school"]}</h6> <p style="color: grey;">{ course["role"] }</p>',
                 html=True,
             )
+
+
+class VideosTestCase(TestCase):
+    @classmethod
+    def setUpTestData(self):
+        """Add test videos to database"""
+        pass
+
+    def setUp(self):
+        """Setup client and request response"""
+        pass
+
+    def test_templates_used(self):
+        """Video page uses layout.html and videos.html"""
+        pass
+
+    def test_active_link(self):
+        """Video page link is listed as active in navbar"""
+        pass
+
+    def test_listed_all_video_titles(self):
+        """All video titles found on videos page"""
+        pass
+
+    def test_listed_all_video_links(self):
+        """All video links found on videos page"""
+        pass
+
+    def test_videos_in_sorted_order(self):
+        """Videos are sorted by recency"""
+        pass
