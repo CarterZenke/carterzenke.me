@@ -121,15 +121,20 @@ class VideosTestCase(TestCase):
 
     def setUp(self):
         """Setup client and request response"""
-        pass
+        self.client = Client()
+        self.response = self.client.get("/videos")
+
+    def test_videos_status(self):
+        """Videos page returns 200"""
+        self.assertEqual(self.response.status_code, 200)
 
     def test_templates_used(self):
         """Video page uses layout.html and videos.html"""
-        pass
+        self.assertTemplateUsed("homepage/layout.html", "homepage/video.html")
 
     def test_active_link(self):
         """Video page link is listed as active in navbar"""
-        pass
+        self.assertContains(self.response, '<a class="nav-link active" aria-current="page" href="/videos">Videos</a>')
 
     def test_listed_all_video_titles(self):
         """All video titles found on videos page"""
