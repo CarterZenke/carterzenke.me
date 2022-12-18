@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Course, Term
+from .models import Course, Term, Video
 
 # Create your views here.
 def index(request):
@@ -18,4 +18,4 @@ def index(request):
     )
 
 def videos(request):
-    return render(request, "homepage/videos.html")
+    return render(request, "homepage/videos.html", {"videos": Video.objects.all()})

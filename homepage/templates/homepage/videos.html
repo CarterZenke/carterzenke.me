@@ -22,13 +22,13 @@
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">{{ video.title }}</h5>
-                    {% if video.slides %}<a href="{{ video.slides }}" class="badge rounded-pill bg-dark">Slides</a>{% endif %}
-                    {% if video.code %}<a href="{{ video.code }}" class="badge rounded-pill bg-dark">Source Code</a>{% endif %}
+                    {% if video.slides %}<a href="{{ video.slides }}" class="badge rounded-pill bg-dark" target="_blank">Slides</a>{% endif %}
+                    {% if video.code %}<a href="{{ video.code }}" class="badge rounded-pill bg-dark" target="_blank">Source Code</a>{% endif %}
                 </div>
                 <div class="card-footer">
                     <small class="text-muted">47k views</small>
-                    {% for tag in video.tags %}
-                        <span class="badge rounded-pill bg-primary">{{ tag }}</span>
+                    {% for tag in video.tags.all %}
+                        <span class="badge rounded-pill bg-primary">{{ tag.name }}</span>
                     {% endfor %}
                 </div>
             </div>
