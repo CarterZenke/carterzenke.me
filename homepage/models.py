@@ -1,7 +1,6 @@
 from django.db import models
 
 
-# Create your models here.
 class Course(models.Model):
     title = models.CharField(max_length=128)
     number = models.CharField(max_length=32)
@@ -31,3 +30,15 @@ class Term(models.Model):
 
     def __str__(self):
         return f"{self.get_semester_display()} {self.year}"
+
+
+class Video(models.Model):
+    title = models.CharField(max_length=256)
+    source = models.URLField(max_length=128)
+    slides = models.URLField(max_length=512)
+    source = models.URLField(max_length=512)
+
+
+class VideoTag(models.Model):
+    name = models.CharField(max_length=64)
+    video = models.ManyToManyField(to=Video, related_name="tags", related_query_name="tags")
