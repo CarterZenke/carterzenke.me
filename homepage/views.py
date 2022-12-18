@@ -16,3 +16,6 @@ def index(request):
             "history": history,
         },
     )
+
+def videos(request):
+    return render(request, "homepage/videos.html")
