@@ -130,7 +130,7 @@ class VideosTestCase(TestCase):
 
     def test_templates_used(self):
         """Video page uses layout.html and videos.html"""
-        self.assertTemplateUsed("homepage/layout.html", "homepage/video.html")
+        self.assertTemplateUsed(self.response, "homepage/layout.html", "homepage/video.html")
 
     def test_active_link(self):
         """Video page link is listed as active in navbar"""
