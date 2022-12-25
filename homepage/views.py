@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Course, Term, Video
+from .helpers import get_yt_video_statistics
 
 # Create your views here.
 def index(request):
