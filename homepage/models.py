@@ -1,5 +1,11 @@
 from django.db import models
 
+# Django Signals
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+from .helpers import get_yt_video_statistics
+
 
 class Course(models.Model):
     title = models.CharField(max_length=128)
@@ -41,10 +47,19 @@ class VideoTag(models.Model):
 
 class Video(models.Model):
     title = models.CharField(max_length=256)
-    source = models.URLField(max_length=128)
+    source = models.CharField(max_length=16)
     slides = models.URLField(max_length=512, blank=True)
     code = models.URLField(max_length=512, blank=True)
     tags = models.ManyToManyField(to=VideoTag, related_name="video", related_query_name="video")
+    last_updated = models.DateTimeField(auto_now_add=True)
+    views = models.IntegerField(default=0)
 
     def __str__(self):
         return f"{self.id}: {self.title}"
+
+
+@receiver(post_save, sender=Video)
+def add_initial_views(sender, instance, created, **kwargs):
+    if created:
+        instance.views = get_yt_video_statistics(instance.source)["viewCount"]
+        instance.save()
