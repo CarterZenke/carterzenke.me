@@ -47,6 +47,8 @@ COURSES = [
     },
 ]
 
+SORTED_SEASONS = ["Fall", "Summer", "Spring", "Winter"]
+
 
 class HomepageTestCase(TestCase):
     @classmethod
@@ -95,13 +97,20 @@ class HomepageTestCase(TestCase):
                 self.response, f"{term['semester']} {term['year']}", count=1
             )
 
-    def test_terms_sorted(self):
-        """Terms are listed most to least recent"""
+    def test_terms_sorted_by_year(self):
+        """Terms are sorted by most to least recent year"""
         history = self.response.context["history"]
-        sorted_terms = sorted(TERMS, key=lambda term: (-term["year"], term["semester"]))
-        for i, term in enumerate(history.keys()):
-            self.assertEquals(sorted_terms[i]["semester"], term.semester)
-            self.assertEquals(sorted_terms[i]["year"], term.year)
+        terms = list(history.keys())
+        for i in range(len(terms) - 1):
+            self.assertGreaterEqual(terms[i].year, terms[i + 1].year)
+
+    def test_terms_sorted_by_semester(self):
+        """Terms are sorted by season within a given year"""
+        history = self.response.context["history"]
+        terms = [term for term in list(history.keys()) if term.year == 2022]
+
+        for i, term in enumerate(terms):
+            self.assertEquals(term.semester, SORTED_SEASONS[i])
 
     def test_courses_listed(self):
         """All courses appear in HTML"""
@@ -130,11 +139,16 @@ class VideosTestCase(TestCase):
 
     def test_templates_used(self):
         """Video page uses layout.html and videos.html"""
-        self.assertTemplateUsed(self.response, "homepage/layout.html", "homepage/video.html")
+        self.assertTemplateUsed(
+            self.response, "homepage/layout.html", "homepage/video.html"
+        )
 
     def test_active_link(self):
         """Video page link is listed as active in navbar"""
-        self.assertContains(self.response, '<a class="nav-link active" aria-current="page" href="/videos">Videos</a>')
+        self.assertContains(
+            self.response,
+            '<a class="nav-link active" aria-current="page" href="/videos">Videos</a>',
+        )
 
     def test_listed_all_video_titles(self):
         """All video titles found on videos page"""

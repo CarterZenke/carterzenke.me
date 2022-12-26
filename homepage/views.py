@@ -8,10 +8,10 @@ RATE_LIMIT = 48
 
 # Create your views here.
 def index(request):
-    terms = Term.objects.all().order_by("-year", "semester")
+    sorted_terms = sorted(Term.objects.all(), key=lambda term: (-term.year, ord(term.semester[0]), -ord(term.semester[1])))
 
     history = {}
-    for term in terms:
+    for term in sorted_terms:
         history[term] = Course.objects.filter(term=term)
 
     return render(

@@ -7,4 +7,3 @@ import random
 class VideoModelTestCase(TransactionTestCase):
     def setUp(self):
         pass
-
