@@ -1,0 +1,40 @@
+{% extends 'homepage/layout.html' %}
+{% load viewcount %}
+
+{% block nav %}
+<ul class="nav nav-tabs">
+    <li class="nav-item">
+        <a class="nav-link" aria-current="page" href="{% url 'index' %}">Teaching</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="{% url 'videos' %}">Videos</a>
+    </li>
+</ul>
+{% endblock %}
+
+{% block body %}
+{% if videos %}
+<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+    {% for video in videos %}
+        <div class="col">
+            <div class="card h-100">
+                <div class="yt-video card-img-top">
+                    <iframe src="https://www.youtube.com/embed/{{ video.source }}" title="{{ video.title }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ video.title }}</h5>
+                    {% if video.slides %}<a href="{{ video.slides }}" class="badge rounded-pill bg-dark" target="_blank">Slides</a>{% endif %}
+                    {% if video.code %}<a href="{{ video.code }}" class="badge rounded-pill bg-dark" target="_blank">Source Code</a>{% endif %}
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">{{ video.views | viewcount }} views</small>
+                    {% for tag in video.tags.all %}
+                        <span class="badge rounded-pill bg-primary">{{ tag.name }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

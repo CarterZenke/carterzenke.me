@@ -11,8 +11,12 @@ a:hover {
     color: black;
 }
 
-.nav-link {
+.nav-tabs .nav-link {
     color: grey !important;
+}
+
+card .active {
+    color: white !important;
 }
 
 .active {
