@@ -30,4 +30,4 @@ def videos(request):
             video.views = get_yt_video_statistics(video.source)["viewCount"]
             video.save()
         
-    return render(request, "homepage/videos.html", {"videos": Video.objects.all()})
+    return render(request, "homepage/videos.html", {"videos": sorted(Video.objects.all(), key=lambda video: video.views, reverse=True)})

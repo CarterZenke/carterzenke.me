@@ -1,6 +1,7 @@
+import datetime
 from django.test import Client
 from django.test import TestCase
-from homepage.models import Course, Term
+from homepage.models import Course, Term, Video, VideoTag
 import random
 
 TERMS = [
@@ -48,6 +49,39 @@ COURSES = [
 ]
 
 SORTED_SEASONS = ["Fall", "Summer", "Spring", "Winter"]
+
+VIDEOS = [
+    {
+        "title": "Week 1 Supersection",
+        "source": "MEO1kAawOXQ",
+        "slides": "https://docs.google.com/presentation/d/1E5yqTTe7ujw0Q7m4JmFDejKaqa5ayarhgeuyWppyeTk/edit?usp=sharing",
+        "code": "",
+        "last_updated": datetime.datetime.now(datetime.timezone.utc),
+        "views": 1000
+    },
+    {
+        "title": "Week 2 Section",
+        "source": "fJJfbKccYWg",
+        "slides": "",
+        "code": "",
+        "last_updated": datetime.datetime.now(datetime.timezone.utc),
+        "views": 138
+    },
+    {
+        "title": "Week 3 Section",
+        "source": "n7Kxdd4iWP8",
+        "slides": "https://docs.google.com/presentation/d/1DaajVkxPHAZRO6Fxg7tbIN4_R4dmn2XapnpNbL_x2oM/edit?usp=sharing",
+        "code": "https://cs50.harvard.edu/college/2022/fall/sections/3/",
+        "last_updated": datetime.datetime.now(datetime.timezone.utc),
+        "views": 250
+    },
+]
+
+TAGS = [
+    {
+        "name": "functions"
+    },
+]
 
 
 class HomepageTestCase(TestCase):
@@ -126,7 +160,16 @@ class VideosTestCase(TestCase):
     @classmethod
     def setUpTestData(self):
         """Add test videos to database"""
-        pass
+        
+        # Add tags to database
+        for tag in TAGS:
+            VideoTag.objects.create(**tag)
+
+        # Add videos to database
+        for video in VIDEOS:
+            video = Video(**video)
+            video.save()
+            video.tags.add(VideoTag.objects.get(pk=random.randint(1, len(TAGS))))
 
     def setUp(self):
         """Setup client and request response"""
@@ -152,12 +195,21 @@ class VideosTestCase(TestCase):
 
     def test_listed_all_video_titles(self):
         """All video titles found on videos page"""
-        pass
+        for video in VIDEOS:
+            self.assertContains(
+                self.response, f"{video['title']}"
+            )
 
     def test_listed_all_video_links(self):
         """All video links found on videos page"""
-        pass
+        for video in VIDEOS:
+            self.assertContains(
+                self.response, f"{video['source']}"
+            )
 
     def test_videos_in_sorted_order(self):
-        """Videos are sorted by recency"""
-        pass
+        """Videos are sorted by popularity"""
+        videos = self.response.context["videos"]
+        sorted_videos = sorted(VIDEOS, key=lambda video: video["views"], reverse=True)
+        for i, video in enumerate(videos):
+            self.assertEquals(video.title, sorted_videos[i]["title"])

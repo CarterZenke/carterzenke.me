@@ -50,16 +50,9 @@ class Video(models.Model):
     source = models.CharField(max_length=16)
     slides = models.URLField(max_length=512, blank=True)
     code = models.URLField(max_length=512, blank=True)
-    tags = models.ManyToManyField(to=VideoTag, related_name="video", related_query_name="video")
+    tags = models.ManyToManyField(to=VideoTag, related_name="video", related_query_name="video", blank=True)
     last_updated = models.DateTimeField(auto_now_add=True)
     views = models.IntegerField(default=0)
 
     def __str__(self):
         return f"{self.id}: {self.title}"
-
-
-@receiver(post_save, sender=Video)
-def add_initial_views(sender, instance, created, **kwargs):
-    if created:
-        instance.views = get_yt_video_statistics(instance.source)["viewCount"]
-        instance.save()
