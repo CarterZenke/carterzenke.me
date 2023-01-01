@@ -57,7 +57,7 @@ VIDEOS = [
         "slides": "https://docs.google.com/presentation/d/1E5yqTTe7ujw0Q7m4JmFDejKaqa5ayarhgeuyWppyeTk/edit?usp=sharing",
         "code": "",
         "last_updated": datetime.datetime.now(datetime.timezone.utc),
-        "views": 1000
+        "views": 1000,
     },
     {
         "title": "Week 2 Section",
@@ -65,7 +65,7 @@ VIDEOS = [
         "slides": "",
         "code": "",
         "last_updated": datetime.datetime.now(datetime.timezone.utc),
-        "views": 138
+        "views": 138,
     },
     {
         "title": "Week 3 Section",
@@ -73,14 +73,12 @@ VIDEOS = [
         "slides": "https://docs.google.com/presentation/d/1DaajVkxPHAZRO6Fxg7tbIN4_R4dmn2XapnpNbL_x2oM/edit?usp=sharing",
         "code": "https://cs50.harvard.edu/college/2022/fall/sections/3/",
         "last_updated": datetime.datetime.now(datetime.timezone.utc),
-        "views": 250
+        "views": 250,
     },
 ]
 
 TAGS = [
-    {
-        "name": "functions"
-    },
+    {"name": "functions"},
 ]
 
 
@@ -160,7 +158,7 @@ class VideosTestCase(TestCase):
     @classmethod
     def setUpTestData(self):
         """Add test videos to database"""
-        
+
         # Add tags to database
         for tag in TAGS:
             VideoTag.objects.create(**tag)
@@ -196,16 +194,12 @@ class VideosTestCase(TestCase):
     def test_listed_all_video_titles(self):
         """All video titles found on videos page"""
         for video in VIDEOS:
-            self.assertContains(
-                self.response, f"{video['title']}"
-            )
+            self.assertContains(self.response, f"{video['title']}")
 
     def test_listed_all_video_links(self):
         """All video links found on videos page"""
         for video in VIDEOS:
-            self.assertContains(
-                self.response, f"{video['source']}"
-            )
+            self.assertContains(self.response, f"{video['source']}")
 
     def test_videos_in_sorted_order(self):
         """Videos are sorted by popularity"""

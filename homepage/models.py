@@ -50,7 +50,9 @@ class Video(models.Model):
     source = models.CharField(max_length=16)
     slides = models.URLField(max_length=512, blank=True)
     code = models.URLField(max_length=512, blank=True)
-    tags = models.ManyToManyField(to=VideoTag, related_name="video", related_query_name="video", blank=True)
+    tags = models.ManyToManyField(
+        to=VideoTag, related_name="video", related_query_name="video", blank=True
+    )
     last_updated = models.DateTimeField(auto_now_add=True)
     views = models.IntegerField(default=0)
 

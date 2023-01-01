@@ -8,7 +8,10 @@ RATE_LIMIT = 48
 
 # Create your views here.
 def index(request):
-    sorted_terms = sorted(Term.objects.all(), key=lambda term: (-term.year, ord(term.semester[0]), -ord(term.semester[1])))
+    sorted_terms = sorted(
+        Term.objects.all(),
+        key=lambda term: (-term.year, ord(term.semester[0]), -ord(term.semester[1])),
+    )
 
     history = {}
     for term in sorted_terms:
@@ -22,12 +25,25 @@ def index(request):
         },
     )
 
+
 def videos(request):
     for video in Video.objects.all():
 
         # Update views if RATE_LIMIT hours have passed, otherwise use cached views
-        if datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(hours=RATE_LIMIT) >= video.last_updated:
+        if (
+            datetime.datetime.now(datetime.timezone.utc)
+            - datetime.timedelta(hours=RATE_LIMIT)
+            >= video.last_updated
+        ):
             video.views = get_yt_video_statistics(video.source)["viewCount"]
             video.save()
-        
-    return render(request, "homepage/videos.html", {"videos": sorted(Video.objects.all(), key=lambda video: video.views, reverse=True)})
+
+    return render(
+        request,
+        "homepage/videos.html",
+        {
+            "videos": sorted(
+                Video.objects.all(), key=lambda video: video.views, reverse=True
+            )
+        },
+    )
