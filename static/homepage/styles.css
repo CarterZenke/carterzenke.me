@@ -4,11 +4,11 @@ body {
 
 a {
     text-decoration: none;
-    color: grey;
+    color: black;
 }
 
 a:hover {
-    color: #ddd;
+    color: #444;
 }
 
 .nav-link {

@@ -14,6 +14,8 @@ from personal_site.settings import (
     USE_TZ,
     STATIC_ROOT,
     STATIC_URL,
+    MEDIA_ROOT,
+    MEDIA_URL,
     DEFAULT_AUTO_FIELD,
 )
 

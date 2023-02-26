@@ -18,11 +18,9 @@
     {% for video in videos %}
         <div class="col">
             <div class="card h-100">
-                <div class="yt-video card-img-top">
-                    <iframe src="https://www.youtube.com/embed/{{ video.source }}" title="{{ video.title }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
+                <a href="https://youtu.be/{{ video.source }}"><img class="card-img-top" src="{{ video.thumbnail.url }}"></a>
                 <div class="card-body">
-                    <h5 class="card-title">{{ video.title }}</h5>
+                    <h5 class="card-title"><a href="https://youtu.be/{{ video.source }}">{{ video.title }}</a></h5>
                     {% if video.slides %}<a href="{{ video.slides }}" class="badge rounded-pill bg-dark" target="_blank">Slides</a>{% endif %}
                     {% if video.code %}<a href="{{ video.code }}" class="badge rounded-pill bg-dark" target="_blank">Source Code</a>{% endif %}
                 </div>

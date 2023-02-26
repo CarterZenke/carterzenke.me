@@ -58,6 +58,7 @@ VIDEOS = [
         "code": "",
         "last_updated": datetime.datetime.now(datetime.timezone.utc),
         "views": 1000,
+        "thumbnail": "test.jpg",
     },
     {
         "title": "Week 2 Section",
@@ -66,6 +67,7 @@ VIDEOS = [
         "code": "",
         "last_updated": datetime.datetime.now(datetime.timezone.utc),
         "views": 138,
+        "thumbnail": "test.jpg",
     },
     {
         "title": "Week 3 Section",
@@ -74,6 +76,7 @@ VIDEOS = [
         "code": "https://cs50.harvard.edu/college/2022/fall/sections/3/",
         "last_updated": datetime.datetime.now(datetime.timezone.utc),
         "views": 250,
+        "thumbnail": "test.jpg",
     },
 ]
 
