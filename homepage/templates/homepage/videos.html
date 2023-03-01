@@ -18,7 +18,7 @@
     {% for video in videos %}
         <div class="col">
             <div class="card h-100">
-                <a href="https://youtu.be/{{ video.source }}"><img class="card-img-top" src="{{ video.thumbnail.url }}"></a>
+                <a href="https://youtu.be/{{ video.source }}"><img class="card-img-top" src="{{ video.thumbnail.url }}" alt="Thumbnail for {{ video.title }}"></a>
                 <div class="card-body">
                     <h5 class="card-title"><a href="https://youtu.be/{{ video.source }}">{{ video.title }}</a></h5>
                     {% if video.slides %}<a href="{{ video.slides }}" class="badge rounded-pill bg-dark" target="_blank">Slides</a>{% endif %}
