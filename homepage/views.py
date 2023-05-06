@@ -27,7 +27,8 @@ def index(request):
 
 
 def videos(request):
-    for video in Video.objects.all():
+    videos = Video.objects.all()
+    for video in videos:
 
         # Update views if RATE_LIMIT hours have passed, otherwise use cached views
         if (
@@ -43,7 +44,7 @@ def videos(request):
         "homepage/videos.html",
         {
             "videos": sorted(
-                Video.objects.all(), key=lambda video: video.views, reverse=True
+                videos, key=lambda video: video.views, reverse=True
             )
         },
     )
