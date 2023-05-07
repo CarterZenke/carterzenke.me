@@ -13,6 +13,43 @@
 {% endblock %}
 
 {% block body %}
+<div class="row-cols-1 row-cols-lg-2 g-4 mb-4">
+    <div class="col">
+        <form>
+            <div class="row g-3">
+                <div class="col-sm">
+                    <div class="input-group">
+                        <input name="q" type="search" class="form-control" placeholder="Topic" aria-label="Search" {% if q %}value="{{ q }}"{% endif %}>
+                        <button class="btn btn-secondary" type="submit">Search</button>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="input-group">
+                        <select name="sort" class="form-select">
+                            <option {% if not sort or sort == "default" %} selected {% endif %}value="default">Sort by...</option>
+                            <option {% if sort == "title-ascending" %} selected {% endif %} value="title-ascending">Title (A-Z)</option>
+                            <option {% if sort == "title-descending" %} selected {% endif %} value="title-descending">Title (Z-A)</option>
+                            <option {% if sort == "views-descending" %} selected {% endif %} value="views-descending">Views (Descending)</option>
+                            <option {% if sort == "views-ascending" %} selected {% endif %} value="views-ascending">Views (Ascending)</option>
+                        </select>
+                        <button class="btn btn-secondary" type="submit">Sort</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% if q %}
+
+{% if count > 1 %}
+<p class="mb-3">Found {{ count }} videos. Want to <a href="{% url 'videos' %}" style="color: blue">see all</a>?</p>
+{% elif count == 1 %}
+<p class="mb-3">Found {{ count }} video. Want to <a href="{% url 'videos' %}" style="color: blue">see all</a>?</p>
+{% else %}
+<p class="mb-3">Oops! Your search returned no results 😔 <a href="{% url 'videos' %}" style="color: blue">Try again</a>?
+{% endif %}
+
+{% endif %}
 {% if videos %}
 <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4 mb-4">
     {% for video in videos %}
