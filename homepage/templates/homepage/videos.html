@@ -13,6 +13,28 @@
 {% endblock %}
 
 {% block body %}
+<div class="row-cols-1 row-cols-lg-2 g-4 mb-4">
+    <div class="col">
+        <form>
+            <div class="row g-3">
+                <div class="col-sm">
+                    <div class="input-group">
+                        <input name="q" type="search" class="form-control" placeholder="Topic" aria-label="Search">
+                        <button class="btn btn-secondary" type="submit">Search</button>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <select name="sort" class="form-select">
+                        <option selected>Order by...</option>
+                        <option value="relevance">Relevance</option>
+                        <option value="views-descending">Views (Descending)</option>
+                        <option value="views-ascending">Views (Ascending)</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 {% if videos %}
 <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4 mb-4">
     {% for video in videos %}
