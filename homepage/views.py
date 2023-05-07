@@ -36,7 +36,7 @@ def videos(request):
             - datetime.timedelta(hours=RATE_LIMIT)
             >= video.last_updated
         ):
-            video.views = get_yt_video_statistics(video.source)["viewCount"]
+            video.views = int(get_yt_video_statistics(video.source)["viewCount"])
             video.save()
 
     return render(

@@ -57,7 +57,7 @@ class Video(models.Model):
     tags = models.ManyToManyField(
         to=VideoTag, related_name="video", related_query_name="video", blank=True
     )
-    last_updated = models.DateTimeField(auto_now_add=True)
+    last_updated = models.DateTimeField(auto_now=True)
     views = models.IntegerField(default=0)
 
     def __init__(self, *args, **kwargs):
