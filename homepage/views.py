@@ -36,7 +36,7 @@ def videos(request):
     if q:
         videos = Video.objects.filter(
             Q(title__icontains=q) | Q(tags__name__icontains=q)
-        )
+        ).distinct()
     else:
         videos = Video.objects.all()
 
